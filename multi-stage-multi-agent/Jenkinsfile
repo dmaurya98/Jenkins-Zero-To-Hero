@@ -6,7 +6,9 @@ pipeline {
         docker { image 'maven:3.8.1-adoptopenjdk-11' }
       }
       steps {
-        sh 'mvn clean install' // Installs Maven dependencies and builds the project
+        dir('java-maven-app') {
+          sh 'mvn clean install'
+        }
       }
     }
     stage('Front-end') {
@@ -14,7 +16,9 @@ pipeline {
         docker { image 'node:16-alpine' }
       }
       steps {
-        sh 'npm install' // Installs npm dependencies based on package.json
+        dir('node-app') {
+          sh 'npm install'
+        }
       }
     }
   }
